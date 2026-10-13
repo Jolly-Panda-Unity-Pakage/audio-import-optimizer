@@ -1,6 +1,6 @@
 # Audio Import Optimizer — Documentation
 
-Editor tool for Unity 6.6 (6000.6) that scans, previews, applies, snapshots and reports `AudioImporter` settings across a project using reusable profiles. Persian version: [index.fa.md](index.fa.md).
+Editor tool for Unity 6.6 (6000.6) that scans, previews, applies, snapshots and reports `AudioImporter` settings across a project using reusable profiles.
 
 | Document | Content |
 |---|---|
@@ -10,6 +10,7 @@ Editor tool for Unity 6.6 (6000.6) that scans, previews, applies, snapshots and 
 | [Troubleshooting](troubleshooting.md) | Common problems |
 | [Architecture](architecture.md) | Assemblies, data flow, decisions |
 | [API reference](api-reference.md) | Generated from the source |
+| [Test and publish guide](testing-and-publishing.md) | Step-by-step: test in Unity, then publish via Git and the Asset Store |
 | [Testing](testing.md) | What exists, what was executed, how to run the rest |
 | [Publication checklist](publication-checklist.md) | Steps before an Asset Store submission |
 

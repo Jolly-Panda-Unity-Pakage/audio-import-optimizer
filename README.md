@@ -59,9 +59,7 @@ _Placeholders — real screenshots must be captured from a Unity Editor session.
 
 ## Documentation
 
-English and Persian: [Index](Documentation~/index.md) ([فارسی](Documentation~/index.fa.md)) · [Getting started](Documentation~/getting-started.md) · [User guide](Documentation~/user-guide.md) · [Profiles](Documentation~/optimization-profiles.md) · [Troubleshooting](Documentation~/troubleshooting.md) · [Architecture](Documentation~/architecture.md) · [API](Documentation~/api-reference.md) · [Testing](Documentation~/testing.md) · [Publication checklist](Documentation~/publication-checklist.md)
-
-Persian README: [README.fa.md](README.fa.md).
+[Index](Documentation~/index.md) · [Getting started](Documentation~/getting-started.md) · [User guide](Documentation~/user-guide.md) · [Profiles](Documentation~/optimization-profiles.md) · [Troubleshooting](Documentation~/troubleshooting.md) · [Architecture](Documentation~/architecture.md) · [API](Documentation~/api-reference.md) · [Testing](Documentation~/testing.md) · [Test and publish guide](Documentation~/testing-and-publishing.md) · [Publication checklist](Documentation~/publication-checklist.md)
 
 ## Testing
 
@@ -81,4 +79,4 @@ Usef Farahmand — https://useffarahmand.com — contact@useffarahmand.com (prop
 
 ---
 
-Part of [Jolly Panda Unity Packages](https://github.com/Jolly-Panda-Unity-Pakage). Documentation is provided in English and Persian.
+Part of [Jolly Panda Unity Packages](https://github.com/Jolly-Panda-Unity-Pakage). Documentation is provided in English.
