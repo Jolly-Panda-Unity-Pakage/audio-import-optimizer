@@ -1,0 +1,7 @@
+{
+  "name": "com.jollypanda.audio-import-optimizer",
+  "displayName": "Audio Import Optimizer",
+  "version": "0.0.1",
+  "unity": "2021.3",
+  "description": "Unity Editor tool that analyzes audio import settings and applies configurable optimization profiles with dry-run previews and snapshots."
+}
