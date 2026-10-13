@@ -1,7 +1,19 @@
 {
   "name": "com.jollypanda.audio-import-optimizer",
   "displayName": "Audio Import Optimizer",
-  "version": "0.0.1",
-  "unity": "2021.3",
-  "description": "Unity Editor tool that analyzes audio import settings and applies configurable optimization profiles with dry-run previews and snapshots."
+  "version": "0.1.0-preview.1",
+  "unity": "6000.6",
+  "description": "Unity Editor tool that analyzes audio import settings and applies configurable optimization profiles with dry-run previews and snapshots.",
+  "keywords": ["audio", "import", "optimizer", "editor", "tools", "audioclip"],
+  "author": {
+    "name": "Usef Farahmand",
+    "email": "contact@useffarahmand.com",
+    "url": "https://useffarahmand.com"
+  },
+  "documentationUrl": "https://github.com/Jolly-Panda-Unity-Pakage/audio-import-optimizer#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jolly-Panda-Unity-Pakage/audio-import-optimizer.git"
+  },
+  "samples": []
 }

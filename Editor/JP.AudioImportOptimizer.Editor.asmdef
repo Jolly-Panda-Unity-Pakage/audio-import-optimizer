@@ -1,0 +1,14 @@
+{
+  "name": "JP.AudioImportOptimizer.Editor",
+  "rootNamespace": "JP.AudioImportOptimizer.Editor",
+  "references": ["JP.AudioImportOptimizer.Core"],
+  "includePlatforms": ["Editor"],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

@@ -25,3 +25,7 @@ Thumbs.db
 *.aab
 *.unitypackage
 *.app
+
+# Local report output
+*.report.json
+*.report.html
