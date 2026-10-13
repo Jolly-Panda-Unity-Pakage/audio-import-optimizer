@@ -1,0 +1,27 @@
+name: Notify organization profile
+
+# When a release is published, ask the organization profile repository to refresh
+# its "Our Packages" list. Requires the organization secret PROFILE_DISPATCH_TOKEN
+# (fine-grained token limited to the .github repository, Contents: read and write).
+# If the secret is missing the step fails harmlessly; the profile also refreshes daily.
+
+on:
+  release:
+    types: [published, unpublished, deleted]
+
+permissions: {}
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger profile README update
+        env:
+          GH_TOKEN: ${{ secrets.PROFILE_DISPATCH_TOKEN }}
+          ORG: ${{ github.repository_owner }}
+        run: |
+          curl --fail-with-body -sS -X POST \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/$ORG/.github/dispatches" \
+            -d '{"event_type":"package-release-published"}'
