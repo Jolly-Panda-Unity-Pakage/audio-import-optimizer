@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using JP.AudioImportOptimizer.Core.Models;
 using JP.AudioImportOptimizer.Core.Planning;
 using JP.AudioImportOptimizer.Core.Reporting;
 using JP.AudioImportOptimizer.Core.Snapshots;

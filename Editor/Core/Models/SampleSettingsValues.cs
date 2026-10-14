@@ -24,6 +24,9 @@ namespace JP.AudioImportOptimizer.Core.Models
         /// <summary>Sample rate override in Hz (only used when the mode is OverrideSampleRate).</summary>
         public uint sampleRateOverride = 44100;
 
+        /// <summary>Whether audio data is preloaded for this platform.</summary>
+        public bool preloadAudioData = true;
+
         /// <summary>Creates a deep copy.</summary>
         /// <returns>A new instance with identical values.</returns>
         public SampleSettingsValues Clone()
@@ -44,6 +47,7 @@ namespace JP.AudioImportOptimizer.Core.Models
                 case SettingKind.Quality: return SettingValue.FromNumber(Math.Round(quality, 3), Math.Round(quality, 3).ToString("0.###", System.Globalization.CultureInfo.InvariantCulture));
                 case SettingKind.SampleRateSetting: return SettingValue.FromEnum((int)sampleRateSetting, sampleRateSetting.ToString());
                 case SettingKind.SampleRateOverride: return SettingValue.FromNumber(sampleRateOverride, sampleRateOverride + " Hz");
+                case SettingKind.PreloadAudioData: return SettingValue.FromBool(preloadAudioData);
                 default: throw new ArgumentException("Not a sample-level setting: " + kind, "kind");
             }
         }
@@ -61,6 +65,7 @@ namespace JP.AudioImportOptimizer.Core.Models
                 case SettingKind.Quality: quality = (float)value.Number; break;
                 case SettingKind.SampleRateSetting: sampleRateSetting = (SampleRateMode)(int)value.Number; break;
                 case SettingKind.SampleRateOverride: sampleRateOverride = (uint)value.Number; break;
+                case SettingKind.PreloadAudioData: preloadAudioData = value.Number > 0.5; break;
                 default: throw new ArgumentException("Not a sample-level setting: " + kind, "kind");
             }
         }

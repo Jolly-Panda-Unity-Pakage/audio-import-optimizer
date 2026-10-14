@@ -49,7 +49,7 @@ namespace JP.AudioImportOptimizer.Editor.Infrastructure
             info.ForceToMono = importer.forceToMono;
             info.LoadInBackground = importer.loadInBackground;
             info.Ambisonic = importer.ambisonic;
-            info.PreloadAudioData = importer.preloadAudioData;
+            info.PreloadAudioData = importer.defaultSampleSettings.preloadAudioData;
             info.Default = ToValues(importer.defaultSampleSettings);
             info.Platforms.Clear();
             foreach (var platform in PlatformCatalog.KnownPlatforms)
@@ -87,7 +87,6 @@ namespace JP.AudioImportOptimizer.Editor.Infrastructure
                 if (c.Kind == SettingKind.ForceToMono) { importer.forceToMono = c.Proposed.Number > 0.5; continue; }
                 if (c.Kind == SettingKind.LoadInBackground) { importer.loadInBackground = c.Proposed.Number > 0.5; continue; }
                 if (c.Kind == SettingKind.Ambisonic) { importer.ambisonic = c.Proposed.Number > 0.5; continue; }
-                if (c.Kind == SettingKind.PreloadAudioData) { importer.preloadAudioData = c.Proposed.Number > 0.5; continue; }
 
                 bool isDefault = c.Platform == PlatformCatalog.DefaultPlatform;
                 var values = ToValues(isDefault ? importer.defaultSampleSettings : importer.GetOverrideSampleSettings(c.Platform));
@@ -107,7 +106,6 @@ namespace JP.AudioImportOptimizer.Editor.Infrastructure
             importer.forceToMono = entry.forceToMono;
             importer.loadInBackground = entry.loadInBackground;
             importer.ambisonic = entry.ambisonic;
-            importer.preloadAudioData = entry.preloadAudioData;
             importer.defaultSampleSettings = ToNative(entry.defaultSettings, importer.defaultSampleSettings);
             foreach (var p in entry.platforms)
             {
@@ -128,18 +126,23 @@ namespace JP.AudioImportOptimizer.Editor.Infrastructure
                 compressionFormat = MapByName<CompressionKind>(s.compressionFormat),
                 quality = s.quality,
                 sampleRateSetting = MapByName<SampleRateMode>(s.sampleRateSetting),
-                sampleRateOverride = s.sampleRateOverride
+                sampleRateOverride = s.sampleRateOverride,
+                preloadAudioData = s.preloadAudioData
             };
         }
 
         /// <summary>Builds native settings from values, starting from an existing struct so unknown future fields are preserved.</summary>
-        private static AudioImporterSampleSettings ToNative(SampleSettingsValues v, AudioImporterSampleSettings baseline)
+        private static AudioImporterSampleSettings ToNative(SampleSettingsValues v,AudioImporterSampleSettings baseline)
         {
             baseline.loadType = MapByName<AudioClipLoadType>(v.loadType);
-            baseline.compressionFormat = MapByName<AudioCompressionFormat>(v.compressionFormat);
+            baseline.compressionFormat =
+                MapByName<AudioCompressionFormat>(v.compressionFormat);
             baseline.quality = v.quality;
-            baseline.sampleRateSetting = MapByName<AudioSampleRateSetting>(v.sampleRateSetting);
+            baseline.sampleRateSetting =
+                MapByName<AudioSampleRateSetting>(v.sampleRateSetting);
             baseline.sampleRateOverride = v.sampleRateOverride;
+            baseline.preloadAudioData = v.preloadAudioData;
+
             return baseline;
         }
 
