@@ -26,7 +26,6 @@ namespace JP.AudioImportOptimizer.Core.Planning
                 case SettingKind.ForceToMono:
                 case SettingKind.LoadInBackground:
                 case SettingKind.Ambisonic:
-                case SettingKind.PreloadAudioData:
                     value = asset.GetAssetLevel(change.Kind);
                     return true;
                 case SettingKind.PlatformOverride:

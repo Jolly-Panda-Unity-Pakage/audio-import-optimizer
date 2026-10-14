@@ -2,7 +2,7 @@
 
 > Unity Editor tool that analyzes audio import settings and applies configurable optimization profiles with dry-run previews and snapshots.
 
-**Status:** 🧪 Preview `0.1.0-preview.1` — implemented, but **not yet compiled or run inside Unity** (see [Testing](Documentation~/testing.md)). Not submitted to or approved by the Asset Store.
+**Status:** 🧪 Preview `0.1.0-preview.1` — compiled and manually tested by the author in Unity 6000.6 (see [Testing](Documentation~/testing.md)). Not submitted to or approved by the Asset Store.
 
 ## Why
 
@@ -32,7 +32,7 @@ Scan a folder, apply one profile with dry-run diff, one-click revert from snapsh
 
 ## Compatibility
 
-Declared in `package.json`: Unity `6000.6`. Editor-only, no dependencies, no runtime code. Support for 2021.3 LTS through earlier Unity 6 releases is a goal of the project README but has **not** been verified, so it is not declared yet.
+Tested only with Unity `6000.6`, which is what `package.json` declares. Editor-only, no dependencies, no runtime code. Other Unity versions have not been tested, so they are not claimed.
 
 ## Installation
 
@@ -53,9 +53,14 @@ Or copy the repository folder into your project's `Packages/` folder, or use *Ad
 
 ## Screenshots
 
-_Placeholders — real screenshots must be captured from a Unity Editor session._
+Captured in Unity 6000.6.
 
-- [ ] Overview  - [ ] Results with rule explanation  - [ ] Changes (dry run)  - [ ] Apply & Restore
+| | |
+|---|---|
+| ![Overview](Documentation~/images/overview.png) | ![Scan](Documentation~/images/scan.png) |
+| ![Profile](Documentation~/images/profile.png) | ![Profile inspector](Documentation~/images/profile-inspector.png) |
+| ![Results](Documentation~/images/results.png) | ![Changes (dry run)](Documentation~/images/changes.png) |
+| ![Apply and restore](Documentation~/images/apply-restore.png) | ![Apply confirmation](Documentation~/images/apply-confirm.png) |
 
 ## Documentation
 
@@ -63,7 +68,7 @@ _Placeholders — real screenshots must be captured from a Unity Editor session.
 
 ## Testing
 
-EditMode tests are in `Tests/EditMode`. Outside Unity, the Core logic was compiled with Mono and 32 pure-logic test methods passed through a stub runner; the Unity-dependent tests have **not** been run. Details: [testing.md](Documentation~/testing.md).
+Manually tested by the author in Unity 6000.6: the package compiles, and the window, profile creation, scan, results, dry run, apply (3 assets, 12 changes, 0 failures) and snapshot creation work (screenshots above). EditMode tests are in `Tests/EditMode`; the pure-logic part also ran outside Unity through a stub runner, but a Unity Test Runner result has **not** been recorded yet. Details: [testing.md](Documentation~/testing.md).
 
 ## Known limitations
 
@@ -75,7 +80,7 @@ EditMode tests are in `Tests/EditMode`. Outside Unity, the Core logic was compil
 
 ## Author
 
-Usef Farahmand — https://useffarahmand.com — contact@useffarahmand.com (proposed address). © Usef Farahmand. License: see [LICENSE.md](LICENSE.md) (decision pending).
+Usef Farahmand — https://useffarahmand.com — contact@useffarahmand.com. © 2026 Usef Farahmand. Licensed under the [MIT License](LICENSE.md).
 
 ---
 

@@ -8,16 +8,17 @@
 - `SnapshotSerializationTests` — `JsonUtility` round trip and `SnapshotStore`.
 - `AudioImporterIntegrationTests` — real importers on temporary WAV files in `Assets/__JP_AIO_Tests__` (read, read-only scan, apply scope, no-op reimport, restore, Android override, deleted asset). Temporary assets and snapshots are removed in `TearDown`.
 
-## What was actually executed (during development, outside Unity)
-The Core assembly was compiled with Mono `mcs` against minimal stubs for four `UnityEngine` attributes, and:
-- a 34-check console harness passed;
-- the 32 test methods in the four pure-logic test files above were run through a small reflection runner with a stub of NUnit's `Assert` — 32 passed, 0 failed.
-This is **not** the Unity Test Runner.
+## What was actually executed
+**By the author in Unity 6000.6 (manual, with screenshots in `Documentation~/images`):**
+- the package compiles (one error, the obsolete `AudioImporter.preloadAudioData`, was found and fixed; Preload Audio Data is now handled in the per-platform sample settings);
+- the window opens; a starter profile is created; a scan reads 16 clips; Results, Changes (12 proposed changes in 3 assets) and Apply & Restore render; Apply wrote 3 assets with 0 failures and a snapshot was created.
 
-## NOT executed
-- Compilation of the `Editor` assembly, the window, the tests that need Unity, and the whole package under Unity 6000.6.
-- `SnapshotSerializationTests` and `AudioImporterIntegrationTests` (need Unity).
-- Domain-reload-disabled behavior, UI behavior, large-project performance.
+**Outside Unity (development sandbox):** the Core assembly was compiled with Mono against stubs, a 34-check harness passed, and the pure-logic test files ran through a small stub runner (all passed). This is not the Unity Test Runner.
+
+## NOT yet recorded
+- A Unity Test Runner result for the EditMode tests (including `SnapshotSerializationTests` and `AudioImporterIntegrationTests`).
+- Manual checks of Restore, platform overrides in the importer Inspector, cancelling a scan, Domain Reload disabled, and a large project.
+- Any Unity version other than 6000.6.
 
 ## How to complete verification
 1. Open a clean Unity 6000.6 project, install the package, add it to `testables`.

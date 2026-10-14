@@ -49,7 +49,6 @@ namespace JP.AudioImportOptimizer.Editor.Infrastructure
             info.ForceToMono = importer.forceToMono;
             info.LoadInBackground = importer.loadInBackground;
             info.Ambisonic = importer.ambisonic;
-            info.PreloadAudioData = importer.defaultSampleSettings.preloadAudioData;
             info.Default = ToValues(importer.defaultSampleSettings);
             info.Platforms.Clear();
             foreach (var platform in PlatformCatalog.KnownPlatforms)
@@ -132,17 +131,14 @@ namespace JP.AudioImportOptimizer.Editor.Infrastructure
         }
 
         /// <summary>Builds native settings from values, starting from an existing struct so unknown future fields are preserved.</summary>
-        private static AudioImporterSampleSettings ToNative(SampleSettingsValues v,AudioImporterSampleSettings baseline)
+        private static AudioImporterSampleSettings ToNative(SampleSettingsValues v, AudioImporterSampleSettings baseline)
         {
             baseline.loadType = MapByName<AudioClipLoadType>(v.loadType);
-            baseline.compressionFormat =
-                MapByName<AudioCompressionFormat>(v.compressionFormat);
+            baseline.compressionFormat = MapByName<AudioCompressionFormat>(v.compressionFormat);
             baseline.quality = v.quality;
-            baseline.sampleRateSetting =
-                MapByName<AudioSampleRateSetting>(v.sampleRateSetting);
+            baseline.sampleRateSetting = MapByName<AudioSampleRateSetting>(v.sampleRateSetting);
             baseline.sampleRateOverride = v.sampleRateOverride;
             baseline.preloadAudioData = v.preloadAudioData;
-
             return baseline;
         }
 

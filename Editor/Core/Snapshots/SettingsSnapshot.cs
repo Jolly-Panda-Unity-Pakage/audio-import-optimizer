@@ -21,8 +21,6 @@ namespace JP.AudioImportOptimizer.Core.Snapshots
         public bool loadInBackground;
         /// <summary>AudioImporter.ambisonic.</summary>
         public bool ambisonic;
-        /// <summary>AudioImporter.preloadAudioData.</summary>
-        public bool preloadAudioData;
         /// <summary>Default sample settings.</summary>
         public SampleSettingsValues defaultSettings = new SampleSettingsValues();
         /// <summary>Platform override states for the platforms the package manages.</summary>
@@ -38,7 +36,7 @@ namespace JP.AudioImportOptimizer.Core.Snapshots
             var e = new SnapshotEntry
             {
                 assetPath = asset.Path, guid = asset.Guid, forceToMono = asset.ForceToMono, loadInBackground = asset.LoadInBackground,
-                ambisonic = asset.Ambisonic, preloadAudioData = asset.PreloadAudioData, defaultSettings = asset.Default.Clone()
+                ambisonic = asset.Ambisonic, defaultSettings = asset.Default.Clone()
             };
             foreach (var p in asset.Platforms)
                 e.platforms.Add(new PlatformState { platform = p.platform, hasOverride = p.hasOverride, settings = p.settings != null ? p.settings.Clone() : null });
@@ -53,7 +51,7 @@ namespace JP.AudioImportOptimizer.Core.Snapshots
         {
             if (asset == null) throw new ArgumentNullException("asset");
             if (forceToMono != asset.ForceToMono || loadInBackground != asset.LoadInBackground
-                || ambisonic != asset.Ambisonic || preloadAudioData != asset.PreloadAudioData) return false;
+                || ambisonic != asset.Ambisonic) return false;
             if (!SameSample(defaultSettings, asset.Default)) return false;
             foreach (var p in platforms)
             {
@@ -70,7 +68,8 @@ namespace JP.AudioImportOptimizer.Core.Snapshots
             if (a == null || b == null) return a == b;
             return a.loadType == b.loadType && a.compressionFormat == b.compressionFormat
                 && Math.Abs(a.quality - b.quality) < 0.0005f && a.sampleRateSetting == b.sampleRateSetting
-                && a.sampleRateOverride == b.sampleRateOverride;
+                && a.sampleRateOverride == b.sampleRateOverride
+                && a.preloadAudioData == b.preloadAudioData;
         }
     }
 

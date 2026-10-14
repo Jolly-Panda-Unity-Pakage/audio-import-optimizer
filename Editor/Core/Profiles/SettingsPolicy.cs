@@ -34,10 +34,6 @@ namespace JP.AudioImportOptimizer.Core.Profiles
         [Tooltip("Desired Ambisonic flag. Only enable for real ambisonic source files.")]
         public bool ambisonic;
 
-        [Tooltip("Enforce the Preload Audio Data value. Off = leave the asset unchanged.")]
-        public bool applyPreloadAudioData;
-        [Tooltip("Desired Preload Audio Data. When off, scripts must call AudioClip.LoadAudioData before playing.")]
-        public bool preloadAudioData = true;
 
         [Header("Sample settings")]
         [Tooltip("Enforce the Load Type. Off = leave the asset unchanged.")]
@@ -67,6 +63,11 @@ namespace JP.AudioImportOptimizer.Core.Profiles
         [Tooltip("Desired sample rate in Hz when the setting is Override Sample Rate. Typical values: 22050, 44100, 48000.")]
         public int sampleRateOverrideHz = 44100;
 
+        [Tooltip("Enforce Preload Audio Data. Unity stores it per platform. Off = leave the asset unchanged.")]
+        public bool applyPreloadAudioData;
+        [Tooltip("Desired Preload Audio Data. When off, scripts must call AudioClip.LoadAudioData before playing.")]
+        public bool preloadAudioData = true;
+
         [Header("Disallowed formats")]
         [Tooltip("Compression formats that must not be used. An asset using one of them is reported as an Error.")]
         public List<CompressionKind> disallowedCompression = new List<CompressionKind>();
@@ -81,7 +82,7 @@ namespace JP.AudioImportOptimizer.Core.Profiles
         }
 
         /// <summary>Returns the desired value of an asset-level setting if it is enforced.</summary>
-        /// <param name="kind">ForceToMono, LoadInBackground, Ambisonic or PreloadAudioData.</param>
+        /// <param name="kind">ForceToMono, LoadInBackground or Ambisonic.</param>
         /// <param name="value">The desired value when enforced.</param>
         /// <returns>True when the setting is enforced.</returns>
         public bool TryGetAssetLevel(SettingKind kind, out SettingValue value)
@@ -91,13 +92,12 @@ namespace JP.AudioImportOptimizer.Core.Profiles
                 case SettingKind.ForceToMono: value = SettingValue.FromBool(forceToMono); return applyForceToMono;
                 case SettingKind.LoadInBackground: value = SettingValue.FromBool(loadInBackground); return applyLoadInBackground;
                 case SettingKind.Ambisonic: value = SettingValue.FromBool(ambisonic); return applyAmbisonic;
-                case SettingKind.PreloadAudioData: value = SettingValue.FromBool(preloadAudioData); return applyPreloadAudioData;
                 default: value = default(SettingValue); return false;
             }
         }
 
         /// <summary>Returns the desired value of a sample-level setting if it is enforced.</summary>
-        /// <param name="kind">LoadType, CompressionFormat, Quality, SampleRateSetting or SampleRateOverride.</param>
+        /// <param name="kind">LoadType, CompressionFormat, Quality, SampleRateSetting, SampleRateOverride or PreloadAudioData.</param>
         /// <param name="value">The desired value when enforced.</param>
         /// <returns>True when the setting is enforced.</returns>
         public bool TryGetSampleLevel(SettingKind kind, out SettingValue value)
@@ -108,7 +108,8 @@ namespace JP.AudioImportOptimizer.Core.Profiles
                 compressionFormat = compressionFormat,
                 quality = quality,
                 sampleRateSetting = sampleRateSetting,
-                sampleRateOverride = (uint)Math.Max(1, sampleRateOverrideHz)
+                sampleRateOverride = (uint)Math.Max(1, sampleRateOverrideHz),
+                preloadAudioData = preloadAudioData
             };
             switch (kind)
             {
@@ -117,6 +118,7 @@ namespace JP.AudioImportOptimizer.Core.Profiles
                 case SettingKind.Quality: value = probe.Get(kind); return applyQuality;
                 case SettingKind.SampleRateSetting: value = probe.Get(kind); return applySampleRateSetting;
                 case SettingKind.SampleRateOverride: value = probe.Get(kind); return applySampleRateOverride;
+                case SettingKind.PreloadAudioData: value = probe.Get(kind); return applyPreloadAudioData;
                 default: value = default(SettingValue); return false;
             }
         }

@@ -135,7 +135,7 @@ namespace JP.AudioImportOptimizer.Editor.UI
             if (_snapshots.Count == 0) { EditorGUILayout.LabelField("No snapshots yet. One is created automatically before every Apply.", EditorStyles.miniLabel); return; }
 
             var names = new string[_snapshots.Count];
-            for (int i = 0; i < names.Length; i++) names[i] = _snapshots[i].CreatedUtc + "  —  " + _snapshots[i].AssetCount + " asset(s)  —  " + _snapshots[i].Label;
+            for (int i = 0; i < names.Length; i++) names[i] = FormatCreated(_snapshots[i].CreatedUtc) + "  —  " + _snapshots[i].AssetCount + " asset(s)  —  " + _snapshots[i].Label;
             _snapshotIndex = Mathf.Clamp(_snapshotIndex, 0, names.Length - 1);
             _snapshotIndex = EditorGUILayout.Popup("Snapshot", _snapshotIndex, names);
 
@@ -156,6 +156,14 @@ namespace JP.AudioImportOptimizer.Editor.UI
                     }
                 }
             }
+        }
+
+        /// <summary>Formats the stored UTC timestamp as local time for the snapshot list.</summary>
+        private static string FormatCreated(string isoUtc)
+        {
+            DateTime parsed;
+            if (DateTime.TryParse(isoUtc, null, System.Globalization.DateTimeStyles.RoundtripKind, out parsed)) return parsed.ToLocalTime().ToString("g");
+            return string.IsNullOrEmpty(isoUtc) ? "(unknown time)" : isoUtc;
         }
 
         // ---------- reports ----------

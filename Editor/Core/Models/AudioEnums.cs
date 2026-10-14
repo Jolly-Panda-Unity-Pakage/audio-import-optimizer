@@ -28,10 +28,7 @@ namespace JP.AudioImportOptimizer.Core.Models
         /// <summary>AudioImporter.ambisonic.</summary>
         Ambisonic = 2,
 
-        /// <summary>
-        /// AudioImporterSampleSettings.preloadAudioData.
-        /// This setting is platform-specific.
-        /// </summary>
+        /// <summary>AudioImporterSampleSettings.preloadAudioData (a per-platform setting).</summary>
         PreloadAudioData = 3,
 
         /// <summary>AudioImporterSampleSettings.loadType.</summary>

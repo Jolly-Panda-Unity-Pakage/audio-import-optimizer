@@ -218,11 +218,11 @@ namespace JP.AudioImportOptimizer.Editor.UI
             }
             float w = row.width - 42f;
             float x = row.x + 40f;
-            GUI.Label(new Rect(x, row.y, w * 0.34f, row.height), new GUIContent(c.AssetPath, c.AssetPath + "\n" + c.Reason), _clip);
-            GUI.Label(new Rect(x + w * 0.34f, row.y, w * 0.10f, row.height), c.Platform, _clip);
-            GUI.Label(new Rect(x + w * 0.44f, row.y, w * 0.16f, row.height), c.Kind.ToString(), _clip);
-            GUI.Label(new Rect(x + w * 0.60f, row.y, w * 0.22f, row.height), c.Current.Display + "  →  " + c.Proposed.Display, _clip);
-            GUI.Label(new Rect(x + w * 0.82f, row.y, w * 0.18f, row.height),
+            GUI.Label(new Rect(x, row.y, w * 0.28f, row.height), new GUIContent(c.AssetPath, c.AssetPath + "\n" + c.Reason), _clip);
+            GUI.Label(new Rect(x + w * 0.28f, row.y, w * 0.08f, row.height), c.Platform, _clip);
+            GUI.Label(new Rect(x + w * 0.36f, row.y, w * 0.14f, row.height), c.Kind.ToString(), _clip);
+            GUI.Label(new Rect(x + w * 0.50f, row.y, w * 0.34f, row.height), c.Current.Display + "  →  " + c.Proposed.Display, _clip);
+            GUI.Label(new Rect(x + w * 0.84f, row.y, w * 0.16f, row.height),
                 new GUIContent((c.SafeToAutoApply ? string.Empty : "(!) ") + c.RuleName, (c.SafeToAutoApply ? string.Empty : "Not auto-safe: removes a platform override. ") + "Reimport: " + (c.TriggersReimport ? "yes" : "no")), _clip);
         }
 

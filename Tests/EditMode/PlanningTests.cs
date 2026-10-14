@@ -42,6 +42,19 @@ namespace JP.AudioImportOptimizer.Tests.EditMode
         }
 
         [Test]
+        public void PreloadAudioData_IsASampleLevelSettingPerPlatform()
+        {
+            var rule = TestFactory.Rule("Preload");
+            rule.defaultPolicy.applyPreloadAudioData = true; rule.defaultPolicy.preloadAudioData = false;
+            var asset = TestFactory.Asset("Assets/a.wav");
+            var plan = Plan(asset, rule);
+            Assert.AreEqual(1, plan.Changes.Count);
+            Assert.AreEqual(SettingKind.PreloadAudioData, plan.Changes[0].Kind);
+            asset.Default.preloadAudioData = false;
+            Assert.AreEqual(0, Plan(asset, rule).Changes.Count);
+        }
+
+        [Test]
         public void SettingsNotEnforced_AreNeverChanged()
         {
             var rule = TestFactory.Rule("Empty");

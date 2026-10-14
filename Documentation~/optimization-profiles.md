@@ -22,8 +22,8 @@ A rule without criteria matches everything (validator reports Info); give it a l
 
 ## Policies
 Each setting has an *Apply* toggle; if off the setting is left as it is. Supported:
-- Asset-level (Default policy only): Force To Mono, Load In Background, Ambisonic, Preload Audio Data.
-- Sample-level (Default and per platform): Load Type, Compression Format, Quality (0–1), Sample Rate Setting, Sample Rate Override (Hz; compared only when the effective mode is *Override Sample Rate*).
+- Asset-level (Default policy only): Force To Mono, Load In Background, Ambisonic.
+- Sample-level (Default and per platform): Load Type, Compression Format, Quality (0–1), Sample Rate Setting, Sample Rate Override (Hz; compared only when the effective mode is *Override Sample Rate*), Preload Audio Data (Unity stores it per platform in the sample settings; `AudioImporter.preloadAudioData` is obsolete in Unity 6000.6).
 - *Disallowed compression*: formats that raise an Error finding.
 Not supported: Normalize (no verified public `AudioImporter` property).
 

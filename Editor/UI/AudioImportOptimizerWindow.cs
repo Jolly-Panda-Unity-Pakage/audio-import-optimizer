@@ -162,7 +162,7 @@ namespace JP.AudioImportOptimizer.Editor.UI
             string diag = job.Diagnostics.Count > 0 ? " " + string.Join(" ", job.Diagnostics) : string.Empty;
             if (job.WasCancelled) SetStatus("Scan cancelled after " + _assets.Count + " asset(s). Results are incomplete." + diag, MessageType.Warning);
             else if (_assets.Count == 0) SetStatus("No audio assets were found in the configured scope." + diag, MessageType.Warning);
-            else SetStatus("Scan complete: " + _assets.Count + " asset(s) read. No import settings were modified." + diag, MessageType.Info);
+            else SetStatus("Scan complete: " + _assets.Count + " asset(s) read. The scan itself modified nothing." + diag, MessageType.Info);
 
             if (_pendingBatchStatus != null)
             {
@@ -279,8 +279,9 @@ namespace JP.AudioImportOptimizer.Editor.UI
             foreach (var rule in _profile.Rules)
             {
                 if (rule == null) continue;
-                EditorGUILayout.LabelField((rule.enabled ? string.Empty : "(disabled) ") + rule.ruleName,
-                    "category: " + rule.category + "  priority: " + rule.priority + "  criteria: " + rule.CountCriteria());
+                // Two lines per rule: the long rule names would overlap a single label/value row.
+                EditorGUILayout.LabelField((rule.enabled ? string.Empty : "(disabled) ") + rule.ruleName, EditorStyles.boldLabel);
+                EditorGUILayout.LabelField("category: " + rule.category + "   priority: " + rule.priority + "   criteria: " + rule.CountCriteria(), EditorStyles.miniLabel);
             }
             EditorGUILayout.Space();
             foreach (var issue in ProfileValidator.Validate(_profile.Rules))

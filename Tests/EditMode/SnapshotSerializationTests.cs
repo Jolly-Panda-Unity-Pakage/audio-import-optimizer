@@ -72,7 +72,7 @@ namespace JP.AudioImportOptimizer.Tests.EditMode
 
         private static AudioAssetInfo AssetFromEntry(SnapshotEntry e)
         {
-            var a = new AudioAssetInfo { Path = e.assetPath, ForceToMono = e.forceToMono, LoadInBackground = e.loadInBackground, Ambisonic = e.ambisonic, PreloadAudioData = e.preloadAudioData, Default = e.defaultSettings.Clone() };
+            var a = new AudioAssetInfo { Path = e.assetPath, ForceToMono = e.forceToMono, LoadInBackground = e.loadInBackground, Ambisonic = e.ambisonic, Default = e.defaultSettings.Clone() };
             foreach (var p in e.platforms) a.Platforms.Add(new PlatformState { platform = p.platform, hasOverride = p.hasOverride, settings = p.settings != null ? p.settings.Clone() : null });
             return a;
         }

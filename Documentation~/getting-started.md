@@ -5,7 +5,7 @@ Audio Import Optimizer lets you check and change the import settings of many aud
 
 ## Install
 1. Copy the package folder into your project's `Packages/` folder (embedded package), or use *Window > Package Manager > + > Add package from disk…* and select `package.json`. A Git URL also works once the repository is published.
-2. Requires Unity 6000.6. There are no dependencies.
+2. Tested with Unity 6000.6 only. There are no dependencies.
 3. To run the tests, add `"testables": ["com.jollypanda.audio-import-optimizer"]` to your project's `Packages/manifest.json`.
 
 ## Open

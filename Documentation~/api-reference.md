@@ -23,7 +23,7 @@ A successful rule match with human-readable reasons.
 - `public OptimizationRule Rule` — The matching rule.
 - `public int Index` — Index of the rule in the profile (used as the last tie-breaker).
 - `public int Specificity` — Number of criteria the rule defines.
-- `public List<string> Reasons` — One sentence per satisfied criterion.
+- `public List<string> Reasons = new List<string>()` — One sentence per satisfied criterion.
 
 ### class `RuleSelection`
 
@@ -32,7 +32,7 @@ A successful rule match with human-readable reasons.
 The outcome of selecting a rule for one asset.
 
 - `public RuleMatch Selected` — The winning match, or null when no rule matched.
-- `public List<RuleMatch> Candidates` — All matching rules ordered from best to worst.
+- `public List<RuleMatch> Candidates = new List<RuleMatch>()` — All matching rules ordered from best to worst.
 - `public bool HasConflict` — True when the two best candidates tie on priority and specificity (list order decided).
 - `public string Explanation` — Explains why the selected rule won; empty when nothing matched.
 
@@ -67,16 +67,15 @@ Everything the analysis needs to know about one audio asset. Contains no Unity o
 - `public string Path` — Project-relative asset path using forward slashes.
 - `public string Guid` — Asset GUID, empty when unknown.
 - `public long FileSizeBytes` — Source file size in bytes, -1 when unavailable.
-- `public List<string> Labels` — Asset labels (AssetDatabase.GetLabels).
+- `public List<string> Labels = new List<string>()` — Asset labels (AssetDatabase.GetLabels).
 - `public string ReadError` — Null when the importer was read successfully; otherwise a description of the failure.
 - `public bool ForceToMono` — AudioImporter.forceToMono.
 - `public bool LoadInBackground` — AudioImporter.loadInBackground.
 - `public bool Ambisonic` — AudioImporter.ambisonic.
-- `public bool PreloadAudioData` — AudioImporter.preloadAudioData.
-- `public SampleSettingsValues Default` — Default sample settings.
-- `public List<PlatformState> Platforms` — Per-platform override state for every platform the adapter inspected.
+- `public SampleSettingsValues Default = new SampleSettingsValues()` — Default sample settings.
+- `public List<PlatformState> Platforms = new List<PlatformState>()` — Per-platform override state for every platform the adapter inspected.
 - `public string Extension` — Lower-case extension including the dot, for example ".wav".
-- `public SettingValue GetAssetLevel(SettingKind kind)` — Reads an asset-level (non-sample) setting. One of ForceToMono, LoadInBackground, Ambisonic, PreloadAudioData. The current value. Thrown for other kinds.
+- `public SettingValue GetAssetLevel(SettingKind kind)` — Reads an asset-level (non-sample) setting. One of ForceToMono, LoadInBackground, Ambisonic. The current value. Thrown for other kinds.
 - `public PlatformState FindPlatform(string platform)` — Finds the state for a platform. Importer platform name. The state, or null if the platform was not inspected.
 
 ### enum `Severity`
@@ -98,7 +97,7 @@ Importer settings the package can read, compare, change, snapshot and restore.
 - `ForceToMono = 0` — AudioImporter.forceToMono.
 - `LoadInBackground = 1` — AudioImporter.loadInBackground.
 - `Ambisonic = 2` — AudioImporter.ambisonic.
-- `PreloadAudioData = 3` — AudioImporter.preloadAudioData.
+- `PreloadAudioData = 3` — AudioImporterSampleSettings.preloadAudioData (a per-platform setting).
 - `LoadType = 4` — AudioImporterSampleSettings.loadType.
 - `CompressionFormat = 5` — AudioImporterSampleSettings.compressionFormat.
 - `Quality = 6` — AudioImporterSampleSettings.quality (0..1).
@@ -154,6 +153,7 @@ Plain-data copy of AudioImporterSampleSettings used by analysis and snapshots.
 - `public float quality` — Quality in the range 0..1 (only meaningful for lossy formats).
 - `public SampleRateMode sampleRateSetting` — Sample rate mode.
 - `public uint sampleRateOverride` — Sample rate override in Hz (only used when the mode is OverrideSampleRate).
+- `public bool preloadAudioData` — Preload audio data. Unity stores this per platform inside the sample settings.
 - `public SampleSettingsValues Clone()` — Creates a deep copy. A new instance with identical values.
 - `public SettingValue Get(SettingKind kind)` — Reads one setting as a . A sample-level setting kind. The current value. Thrown when  is not a sample-level setting.
 - `public void Set(SettingKind kind, SettingValue value)` — Writes one setting from a . A sample-level setting kind. The value to store. Thrown when  is not a sample-level setting.
@@ -260,9 +260,9 @@ An explained observation about an asset.
 Analysis result for one asset.
 
 - `public AudioAssetInfo Asset` — The inspected asset.
-- `public RuleSelection Selection` — Rule selection and explanation.
-- `public List<Finding> Findings` — Findings for this asset.
-- `public List<ProposedChange> Changes` — Changes proposed for this asset.
+- `public RuleSelection Selection = new RuleSelection()` — Rule selection and explanation.
+- `public List<Finding> Findings = new List<Finding>()` — Findings for this asset.
+- `public List<ProposedChange> Changes = new List<ProposedChange>()` — Changes proposed for this asset.
 - `public bool Excluded` — User toggle; an excluded asset is skipped entirely.
 - `public string Category` — Category of the selected rule, or "Unmatched".
 - `public Severity WorstSeverity` — Highest severity among the findings.
@@ -274,7 +274,7 @@ Analysis result for one asset.
 
 The full dry-run result for a scan.
 
-- `public List<AssetPlan> Assets` — Per-asset results in scan order.
+- `public List<AssetPlan> Assets = new List<AssetPlan>()` — Per-asset results in scan order.
 - `public int FindingCount` — Total number of findings.
 - `public int CountFindings(Severity severity)` — Counts findings of one severity. Severity to count. The count.
 - `public int AssetsWithPendingChanges` — Number of assets that currently have at least one pending change.
@@ -294,14 +294,14 @@ One matching rule plus the policy applied to matching assets. All non-empty crit
 - `public string category`
 - `public int priority`
 - `public Severity mismatchSeverity`
-- `public List<string> folders`
-- `public List<string> namePatterns`
-- `public List<string> extensions`
-- `public List<string> labels`
+- `public List<string> folders = new List<string>()`
+- `public List<string> namePatterns = new List<string>()`
+- `public List<string> extensions = new List<string>()`
+- `public List<string> labels = new List<string>()`
 - `public int minFileSizeKb`
 - `public int maxFileSizeKb`
-- `public SettingsPolicy defaultPolicy`
-- `public List<PlatformPolicy> platformPolicies`
+- `public SettingsPolicy defaultPolicy = new SettingsPolicy()`
+- `public List<PlatformPolicy> platformPolicies = new List<PlatformPolicy>()`
 - `public int CountCriteria()` — Counts the non-empty matching criteria (the rule's specificity). A number between 0 and 5.
 
 ### class `ValidationIssue`
@@ -336,8 +336,6 @@ Desired importer settings. A setting is only enforced when its matching "apply" 
 - `public bool loadInBackground`
 - `public bool applyAmbisonic`
 - `public bool ambisonic`
-- `public bool applyPreloadAudioData`
-- `public bool preloadAudioData`
 - `public bool applyLoadType`
 - `public LoadMode loadType`
 - `public bool applyCompressionFormat`
@@ -348,10 +346,12 @@ Desired importer settings. A setting is only enforced when its matching "apply" 
 - `public SampleRateMode sampleRateSetting`
 - `public bool applySampleRateOverride`
 - `public int sampleRateOverrideHz`
-- `public List<CompressionKind> disallowedCompression`
+- `public bool applyPreloadAudioData`
+- `public bool preloadAudioData`
+- `public List<CompressionKind> disallowedCompression = new List<CompressionKind>()`
 - `public bool HasAnyEnforcement()` — Returns true when at least one setting or disallow list entry is enforced. True when the policy does something.
-- `public bool TryGetAssetLevel(SettingKind kind, out SettingValue value)` — Returns the desired value of an asset-level setting if it is enforced. ForceToMono, LoadInBackground, Ambisonic or PreloadAudioData. The desired value when enforced. True when the setting is enforced.
-- `public bool TryGetSampleLevel(SettingKind kind, out SettingValue value)` — Returns the desired value of a sample-level setting if it is enforced. LoadType, CompressionFormat, Quality, SampleRateSetting or SampleRateOverride. The desired value when enforced. True when the setting is enforced.
+- `public bool TryGetAssetLevel(SettingKind kind, out SettingValue value)` — Returns the desired value of an asset-level setting if it is enforced. ForceToMono, LoadInBackground or Ambisonic. The desired value when enforced. True when the setting is enforced.
+- `public bool TryGetSampleLevel(SettingKind kind, out SettingValue value)` — Returns the desired value of a sample-level setting if it is enforced. LoadType, CompressionFormat, Quality, SampleRateSetting, SampleRateOverride or PreloadAudioData. The desired value when enforced. True when the setting is enforced.
 
 ### class `PlatformPolicy`
 
@@ -361,7 +361,7 @@ Policy for one platform override block.
 
 - `public string platform` — Importer platform name (see ).
 - `public bool enableOverride`
-- `public SettingsPolicy policy`
+- `public SettingsPolicy policy = new SettingsPolicy()`
 
 ### class `PlatformCatalog`
 
@@ -409,8 +409,8 @@ Everything a report contains. Only project-relative paths are included.
 - `public string Scope` — Human-readable scan scope, for example "Assets/Audio".
 - `public string ProfileName` — Name of the profile used.
 - `public bool ScanIncomplete` — True when the scan was cancelled before completion.
-- `public OptimizationPlan Plan` — The dry-run plan.
-- `public List<AssetApplyResult> ApplyResults` — Apply results, empty if nothing was applied yet.
+- `public OptimizationPlan Plan = new OptimizationPlan()` — The dry-run plan.
+- `public List<AssetApplyResult> ApplyResults = new List<AssetApplyResult>()` — Apply results, empty if nothing was applied yet.
 - `public int CountApply(ApplyOutcome outcome)` — Counts apply results of one outcome. Outcome to count. The count.
 
 ### class `ReportWriter`
@@ -437,9 +437,8 @@ One asset's captured importer state.
 - `public bool forceToMono` — AudioImporter.forceToMono.
 - `public bool loadInBackground` — AudioImporter.loadInBackground.
 - `public bool ambisonic` — AudioImporter.ambisonic.
-- `public bool preloadAudioData` — AudioImporter.preloadAudioData.
-- `public SampleSettingsValues defaultSettings` — Default sample settings.
-- `public List<PlatformState> platforms` — Platform override states for the platforms the package manages.
+- `public SampleSettingsValues defaultSettings = new SampleSettingsValues()` — Default sample settings.
+- `public List<PlatformState> platforms = new List<PlatformState>()` — Platform override states for the platforms the package manages.
 - `public static SnapshotEntry FromAsset(AudioAssetInfo asset)` — Captures the current state of an asset. A successfully read asset. A deep copy suitable for serialization. Thrown when asset is null.
 - `public bool MatchesAsset(AudioAssetInfo asset)` — Checks whether an asset's current state already equals this entry (for the platforms the entry lists). The current asset state. True when restoring would change nothing. Thrown when asset is null.
 
@@ -456,7 +455,7 @@ A recoverable record of importer settings taken before a batch apply.
 - `public string createdUtc` — UTC creation time, ISO 8601.
 - `public string packageVersion` — Package version that wrote the file.
 - `public string unityVersion` — Unity version that wrote the file.
-- `public List<SnapshotEntry> entries` — Captured assets.
+- `public List<SnapshotEntry> entries = new List<SnapshotEntry>()` — Captured assets.
 
 ### class `SnapshotValidator`
 
@@ -476,9 +475,9 @@ Validates a snapshot before any restore is attempted.
 User-configurable scan scope.
 
 - `public List<string> includeFolders` — Folders to search. Defaults to the whole Assets folder.
-- `public List<string> excludeFolders` — Folders skipped even when inside an included folder.
+- `public List<string> excludeFolders = new List<string>()` — Folders skipped even when inside an included folder.
 - `public bool includePackages` — When true the Packages folder is searched too. Package assets are often read-only, so applying changes there can fail.
-- `public List<string> extensions` — Optional extension filter (for example .wav). Empty means every audio asset Unity can import.
+- `public List<string> extensions = new List<string>()` — Optional extension filter (for example .wav). Empty means every audio asset Unity can import.
 
 ### class `ScanJob`
 
@@ -486,8 +485,8 @@ User-configurable scan scope.
 
 A time-sliced, cancellable, read-only scan. Call  repeatedly (for example from EditorApplication.update) until  is true. Only importer metadata is read; no clip is loaded and nothing is reimported.
 
-- `public readonly List<AudioAssetInfo> Results` — Assets read so far.
-- `public readonly List<string> Diagnostics` — Problems with the scan configuration (missing folders and similar).
+- `public readonly List<AudioAssetInfo> Results = new List<AudioAssetInfo>()` — Assets read so far.
+- `public readonly List<string> Diagnostics = new List<string>()` — Problems with the scan configuration (missing folders and similar).
 - `public bool IsDone` — True once every asset has been read or the job was cancelled.
 - `public bool WasCancelled` — True when  was called before completion.
 - `public float Progress` — Progress between 0 and 1.
@@ -599,11 +598,11 @@ Reports progress and returns true when the user asked to cancel. Operation title
 
 Outcome of a batch apply or restore.
 
-- `public readonly List<AssetApplyResult> Results` — Per-asset results.
+- `public readonly List<AssetApplyResult> Results = new List<AssetApplyResult>()` — Per-asset results.
 - `public string SnapshotId` — Id of the snapshot written before changing anything; null when nothing was captured.
 - `public bool Cancelled` — True when the user cancelled; remaining assets are reported as skipped.
 - `public string FatalError` — Set when the whole operation was refused (for example the snapshot could not be saved). No asset was modified.
-- `public int Count(ApplyOutcome outcome) { int n` — Counts results with the given outcome. Outcome to count. The count.
+- `public int Count(ApplyOutcome outcome) { int n = 0; foreach (var r in Results) if (r.Outcome == outcome) n++; return n; }` — Counts results with the given outcome. Outcome to count. The count.
 
 ### class `BatchApplier`
 
@@ -628,6 +627,6 @@ Restores the importer settings captured by a snapshot: Force To Mono, Load In Ba
 
 `public sealed partial class AudioImportOptimizerWindow`
 
-
+Apply, Restore and Reports tabs of the main window.
 
 - `public static void Open()` — Opens the window.

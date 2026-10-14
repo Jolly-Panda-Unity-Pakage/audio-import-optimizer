@@ -47,9 +47,6 @@ namespace JP.AudioImportOptimizer.Core.Models
         /// <summary>AudioImporter.ambisonic.</summary>
         public bool Ambisonic;
 
-        /// <summary>AudioImporter.preloadAudioData.</summary>
-        public bool PreloadAudioData;
-
         /// <summary>Default sample settings.</summary>
         public SampleSettingsValues Default = new SampleSettingsValues();
 
@@ -63,7 +60,7 @@ namespace JP.AudioImportOptimizer.Core.Models
         }
 
         /// <summary>Reads an asset-level (non-sample) setting.</summary>
-        /// <param name="kind">One of ForceToMono, LoadInBackground, Ambisonic, PreloadAudioData.</param>
+        /// <param name="kind">One of ForceToMono, LoadInBackground, Ambisonic.</param>
         /// <returns>The current value.</returns>
         /// <exception cref="ArgumentException">Thrown for other kinds.</exception>
         public SettingValue GetAssetLevel(SettingKind kind)
@@ -73,7 +70,6 @@ namespace JP.AudioImportOptimizer.Core.Models
                 case SettingKind.ForceToMono: return SettingValue.FromBool(ForceToMono);
                 case SettingKind.LoadInBackground: return SettingValue.FromBool(LoadInBackground);
                 case SettingKind.Ambisonic: return SettingValue.FromBool(Ambisonic);
-                case SettingKind.PreloadAudioData: return SettingValue.FromBool(PreloadAudioData);
                 default: throw new ArgumentException("Not an asset-level setting: " + kind, "kind");
             }
         }

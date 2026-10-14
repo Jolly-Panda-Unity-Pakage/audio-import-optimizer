@@ -1,6 +1,6 @@
 # Step-by-step: test and publish
 
-Nothing below has been done yet. The package has never been compiled in Unity, so Part A comes first and Part B must not start before Part A passes.
+Part A comes first; do not start Part B before Part A passes. Already done by the author in Unity 6000.6: compile, window, profile, scan, dry run and one apply (see `testing.md`). The automated tests and the remaining manual checks below still need to be recorded.
 
 ## Part A — Test in Unity 6000.6
 
@@ -31,7 +31,7 @@ Nothing below has been done yet. The package has never been compiled in Unity, s
 
 ### A4. Run the automated tests
 1. *Window > General > Test Runner* → **EditMode** tab → **Run All**.
-2. Expected: 42 tests (32 pure-logic, 3 snapshot serialization, 7 importer integration). Write down the real numbers: passed, failed, skipped.
+2. Expected: 43 tests (33 pure-logic, 3 snapshot serialization, 7 importer integration). Write down the real numbers: passed, failed, skipped.
 3. The integration tests create `Assets/__JP_AIO_Tests__` and delete it afterwards; make sure it is gone after the run. Any snapshot they wrote is deleted too.
 4. Fix every failure (code or test) and rerun until all pass. Do not report a pass that did not happen.
 
@@ -67,11 +67,11 @@ Record results in a table like this and keep it with the release notes.
 
 ### B1. Before any release
 1. Part A fully passed; record the Unity version used.
-2. Decide the license and replace the contents of `LICENSE.md` (the author's decision; no license is set).
+2. The license is MIT (`LICENSE.md`, © 2026 Usef Farahmand). If you sell on the Asset Store, check how the MIT license sits alongside the Asset Store EULA.
 3. Confirm the contact mailbox; if it changes update `package.json` and `Editor/Infrastructure/PackageMetadata.cs`.
-4. Decide the final `"unity"` value in `package.json` (only claim versions you tested).
+4. `"unity"` in `package.json` is `6000.6`, the only version tested; add others only after testing them.
 5. Set the version (semantic versioning) in `package.json` **and** `PackageMetadata.FallbackVersion`, and write the release date in `CHANGELOG.md`.
-6. Take real screenshots in the Editor and replace the placeholders in `README.md`.
+6. Screenshots from Unity 6000.6 are already in `Documentation~/images` and the README; retake them if the UI changes.
 
 ### B2. Publish through Git (Package Manager install)
 ```bash

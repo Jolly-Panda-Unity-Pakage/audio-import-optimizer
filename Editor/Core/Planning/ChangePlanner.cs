@@ -15,13 +15,13 @@ namespace JP.AudioImportOptimizer.Core.Planning
     {
         private static readonly SettingKind[] AssetKinds =
         {
-            SettingKind.ForceToMono, SettingKind.LoadInBackground, SettingKind.Ambisonic, SettingKind.PreloadAudioData
+            SettingKind.ForceToMono, SettingKind.LoadInBackground, SettingKind.Ambisonic
         };
 
         private static readonly SettingKind[] SampleKinds =
         {
             SettingKind.LoadType, SettingKind.CompressionFormat, SettingKind.Quality,
-            SettingKind.SampleRateSetting, SettingKind.SampleRateOverride
+            SettingKind.SampleRateSetting, SettingKind.SampleRateOverride, SettingKind.PreloadAudioData
         };
 
         /// <summary>Plans one asset.</summary>

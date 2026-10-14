@@ -24,7 +24,7 @@ namespace JP.AudioImportOptimizer.Core.Models
         /// <summary>Sample rate override in Hz (only used when the mode is OverrideSampleRate).</summary>
         public uint sampleRateOverride = 44100;
 
-        /// <summary>Whether audio data is preloaded for this platform.</summary>
+        /// <summary>Preload audio data. Unity stores this per platform inside the sample settings.</summary>
         public bool preloadAudioData = true;
 
         /// <summary>Creates a deep copy.</summary>
